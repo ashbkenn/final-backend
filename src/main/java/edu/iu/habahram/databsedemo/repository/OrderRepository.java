@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface OrderRepository
         extends CrudRepository<Order, Integer>
-, QueryByExampleExecutor<Order> {
+        , QueryByExampleExecutor<Order> {
     List<Order> findAllByCustomerUserName(String customerUserName);
 }
