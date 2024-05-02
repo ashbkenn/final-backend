@@ -4,33 +4,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Occasion {
-    MOTHERS_DAY("Mother's Day"),
-    BIRTHDAY("Birthday"),
-    THANK_YOU("Thank You");
+    BIRTHDAY("Birthday"), MOTHERSDAY("Mother's Day"), THANKYOU("Thank You");
 
-    private String displayName;
+    private String s;
 
-    private Occasion(String displayName) {
-        this.displayName = displayName;
-    }
+    private Occasion(String s) {this.s = s;}
 
-    @JsonCreator
-    public static Occasion fromText(String text) {
-        for (Occasion occasion : Occasion.values()) {
-            if (occasion.toString().equalsIgnoreCase(text)) {
-                return occasion;
-            }
-        }
-        return null;
-    }
 
     @Override
-    public String toString() {
-        return displayName;
-    }
+    public String toString() {return s;}
 
-    @JsonValue
-    public String toText() {
-        return toString();
-    }
+
 }

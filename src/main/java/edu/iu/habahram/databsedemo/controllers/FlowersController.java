@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -18,7 +19,9 @@ public class FlowersController {
     FlowersFileRepository flowersFileRepository;
     FlowersRepository flowersRepository;
 
-    public FlowersController(FlowersFileRepository flowersFileRepository, FlowersRepository flowersRepository) {
+    public FlowersController(
+            FlowersFileRepository flowersFileRepository,
+            FlowersRepository flowersRepository) {
         this.flowersFileRepository = flowersFileRepository;
         this.flowersRepository = flowersRepository;
     }
@@ -35,21 +38,29 @@ public class FlowersController {
         return flowers;
     }
 
-    @GetMapping("/search")
-    public Iterable<Flower> search(@RequestBody Flower flower, @RequestParam(required = false, defaultValue = "false") boolean lowToHigh) {
-        Iterable<Flower> flowers = lowToHigh ? flowersRepository.findAllByOrderByCostAsc() : flowersRepository.findAllByOrderByCostDesc();
-        return flowersFileRepository.search(flowers, flower);
-    }
-
     @GetMapping("/{id}/image")
     public ResponseEntity<?> getImage(@PathVariable int id) {
         try {
             byte[] image = flowersFileRepository.getImage(id);
-            return ResponseEntity.status(HttpStatus.FOUND).contentType(MediaType.IMAGE_PNG).body(image);
+            return ResponseEntity.status(HttpStatus.FOUND)
+                    .contentType(MediaType.IMAGE_PNG)
+                    .body(image);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+    @GetMapping("/{id}")
+    public Flower getFlower(@PathVariable int id){
+        try{
+            Optional<Flower> a = flowersRepository.findById(id);
+            return a.orElse(null);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
     @PostMapping("/{id}/image")
     public boolean updateImage(@PathVariable int id, @RequestParam MultipartFile file) {

@@ -4,32 +4,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Type {
-    MIXED("Mixed"), ROSES("Roses"), LILIES("Lilies"), TULIPS("Tulips"), DAISIES("Daisies");
+    ROSES("Roses"),
+    LILIES("Lilies"),
+    TULIPS("Tulips"),
+    MIXED("Mixed"),
+    DAISIES("Daisies");
 
 
-    private final String displayName;
+    private final String s;
 
-    private Type(String displayName) {
-        this.displayName = displayName;
+    private Type(String s) {
+        this.s = s;
     }
 
-    @JsonCreator
-    public static Type fromText(String text) {
-        for (Type type : Type.values()) {
-            if (type.toString().equalsIgnoreCase(text)) {
-                return type;
-            }
-        }
-        return null;
-    }
 
     @Override
-    public String toString() {
-        return displayName;
-    }
+    public String toString() {return s;}
 
-    @JsonValue
-    public String toText() {
-        return toString();
-    }
+
 }

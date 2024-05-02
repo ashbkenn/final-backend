@@ -14,9 +14,8 @@ import java.util.List;
 @Repository
 public class FlowersFileRepository {
     private String IMAGES_FOLDER_PATH = "flowers/images/";
-
     public byte[] getImage(int id) throws IOException {
-        String fileExtension = ".jpeg";
+        String fileExtension = ".jpg";
         Path path = Paths.get(IMAGES_FOLDER_PATH
                 + id + fileExtension);
         byte[] image = Files.readAllBytes(path);
@@ -27,7 +26,7 @@ public class FlowersFileRepository {
         System.out.println(file.getOriginalFilename());
         System.out.println(file.getContentType());
 
-        String fileExtension = ".jpeg";
+        String fileExtension = ".jpg";
         Path path = Paths.get(IMAGES_FOLDER_PATH
                 + id + fileExtension);
         System.out.println("The file " + path + " was saved successfully.");
@@ -35,21 +34,15 @@ public class FlowersFileRepository {
         return true;
     }
 
-    public List<Flower> search(Iterable<Flower> allFlowers, Flower searchFlower) {
-        List<Flower> searchFlowers = new ArrayList<>();
-        for (Flower flower : allFlowers) {
-            if (searchFlower.getType() != null && !searchFlower.getType().equals(flower.getType())) {
-                continue;
-            }
-            if (searchFlower.getOccasion() != null && !searchFlower.getOccasion().equals(flower.getOccasion())) {
-                continue;
-            }
-            if (searchFlower.getColor() != null && !searchFlower.getColor().equals(flower.getColor())) {
-                continue;
-            }
-
-            searchFlowers.add(flower);
+    public List<Flower> search(Iterable<Flower> allF, Flower sf) {
+        List<Flower> f = new ArrayList<>();
+        for (Flower flower : allF) {
+            if (sf.getOccasion() != null && !sf.getOccasion().equals(flower.getOccasion())) {continue;}
+            if (sf.getColor() != null && !sf.getColor().equals(flower.getColor())) {continue;}
+            if (sf.getType() != null && !sf.getType().equals(flower.getType())) {continue;}
+            f.add(flower);
         }
-        return searchFlowers;
+        return f;
     }
+
 }

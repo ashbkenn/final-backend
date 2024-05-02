@@ -4,31 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Color {
-    MIXED("Mixed"), RED("Red"), YELLOW("Yellow"), GREEN("Green"), ORANGE("Orange");
+    RED("Red"), YELLOW("Yellow"), GREEN("Green"), ORANGE("Orange"), MIXED("Mixed");
 
-    private final String displayName;
+    private final String s;
 
-    private Color(String displayName) {
-        this.displayName = displayName;
-    }
+    private Color(String s) {this.s = s;}
 
-    @JsonCreator
-    public static Color fromText(String text) {
-        for (Color color : Color.values()) {
-            if (color.toString().equalsIgnoreCase(text)) {
-                return color;
-            }
-        }
-        return null;
-    }
 
     @Override
-    public String toString() {
-        return displayName;
-    }
+    public String toString() {return s;}
 
-    @JsonValue
-    public String toText() {
-        return toString();
-    }
 }

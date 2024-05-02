@@ -1,24 +1,27 @@
 package edu.iu.habahram.databsedemo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(schema = "flowers", name = "orders")
-public class Order {
+@Table(schema = "flowers", name="orders")
+public class OrderData {
     @Id
     @GeneratedValue
     private int id;
 
     private int flowerId;
-    private int recipientId;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
+    private String recipientName;
+
+    private String flowerName;
     private float totalCost;
     private String customerUserName;
 
 
-    public Order() {
+    public OrderData() {
     }
 
     public int getId() {
@@ -37,12 +40,12 @@ public class Order {
         this.flowerId = flowerId;
     }
 
-    public int getRecipientId() {
-        return recipientId;
+    public String getRecipientName() {
+        return recipientName;
     }
 
-    public void setRecipientId(int recipientId) {
-        this.recipientId = recipientId;
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
     }
 
     public float getTotalCost() {
@@ -60,4 +63,21 @@ public class Order {
     public void setCustomerUserName(String customerUserName) {
         this.customerUserName = customerUserName;
     }
+
+    public String getFlowerName() {
+        return flowerName;
+    }
+
+    public void setFlowerName(String flowerName) {
+        this.flowerName = flowerName;
+    }
+
+    public OrderStatus getStatus() {
+        return orderStatus;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.orderStatus = status;
+    }
 }
+

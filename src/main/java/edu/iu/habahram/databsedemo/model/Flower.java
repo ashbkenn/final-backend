@@ -1,9 +1,6 @@
 package edu.iu.habahram.databsedemo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(schema = "flowers", name = "flowers")
@@ -14,8 +11,12 @@ public class Flower {
     private String name;
     private float cost;
 
+    @Enumerated(EnumType.STRING)
     private Type type;
+    @Enumerated(EnumType.STRING)
     private Occasion occasion;
+
+    @Enumerated(EnumType.STRING)
     private Color color;
 
     public Flower() {
@@ -57,13 +58,9 @@ public class Flower {
         return type;
     }
 
-    public void setType(Type type) {
-        this.type = type;
-    }
+    public void setType(Type type) {this.type = type;}
 
-    public Occasion getOccasion() {
-        return occasion;
-    }
+    public Occasion getOccasion() {return occasion;}
 
     public void setOccasion(Occasion occasion) {
         this.occasion = occasion;
@@ -77,3 +74,4 @@ public class Flower {
         this.color = color;
     }
 }
+
